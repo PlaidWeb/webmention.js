@@ -168,7 +168,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
             }).then(function(response) {
                 return response.json();
             }).then(callback).catch(function(error) {
-                console.log("Request failed", error);
+                console.error("Request failed", error);
             });
         } else {
             var oReq = new XMLHttpRequest();
@@ -176,7 +176,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
                 callback(JSON.parse(data));
             }
             oReq.onerror = function(error) {
-                console.log("Request failed", error);
+                console.error("Request failed", error);
             }
         }
     }
