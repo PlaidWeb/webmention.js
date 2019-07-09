@@ -16,7 +16,7 @@ Client-side library for rendering webmentions from webmention.io
 
 You can also pass in some arguments, for example:
 
-    <script href="webmention.js" data-id="webmention-container">
+    <script src="webmention.js" data-id="webmention-container">
 
 Accepted arguments:
 

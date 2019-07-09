@@ -35,15 +35,22 @@
 }
 
 #webmentions a.reaction {
+    position: relative;
     text-decoration: none;
     text-shadow: 0px 0px 3px white;
     margin-right: 0;
+    letter-spacing: -1ex;
+    margin-right: 1ex;
 }
 
 #webmentions a.reaction img {
     max-height: 1.3em;
     margin-right: -1ex;
     border-radius: 25%;
+}
+
+#webmentions a.reaction sub {
+    font-size: 50%;
 }
 
 #webmentions .comments li {
