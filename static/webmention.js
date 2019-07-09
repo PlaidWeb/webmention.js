@@ -57,8 +57,8 @@ GitHub repo (for latest released versions, issue tracking, etc.):
     var rsvpEmoji = {
         'yes': '✅',
         'no': '❌',
-        'interested': '💡',
-        'maybe': '❓'
+        'interested': '💡'
+        'maybe': '⚖️'
     };
 
     function reactImage(r) {
@@ -68,7 +68,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
         if (r.author && r.author.photo) {
             html += '<img src="' + r.author.photo + '">';
         }
-        html += (reactEmoji[r['wm-property']] || '⁉️');
+        html += (reactEmoji[r['wm-property']] || '💥');
         if (r.rsvp && rsvpEmoji[r.rsvp]) {
             html += '<sub>' + rsvpEmoji[r.rsvp] + '</sub>';
         }
