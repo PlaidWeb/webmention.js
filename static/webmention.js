@@ -54,6 +54,13 @@ GitHub repo (for latest released versions, issue tracking, etc.):
         'follow-of': '🐜',
     };
 
+    var rsvpEmoji = {
+        'yes': '✅',
+        'no': '❌',
+        'interested': '💡',
+        'maybe': '💭'
+    };
+
     function reactImage(r) {
         var who = (r.author && r.author.name ? r.author.name : r.url.split('/')[2]);
         var response = reactTitle[r['wm-property']] || 'reacted';
@@ -61,7 +68,11 @@ GitHub repo (for latest released versions, issue tracking, etc.):
         if (r.author && r.author.photo) {
             html += '<img src="' + r.author.photo + '">';
         }
-        html += (reactEmoji[r['wm-property']] || '⁉️') + '</a>';
+        html += (reactEmoji[r['wm-property']] || '💥');
+        if (r.rsvp && rsvpEmoji[r.rsvp]) {
+            html += '<sub>' + rsvpEmoji[r.rsvp] + '</sub>';
+        }
+        html += '</a>';
 
         return html;
     }
@@ -157,7 +168,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
             }).then(function(response) {
                 return response.json();
             }).then(callback).catch(function(error) {
-                console.log("Request failed", error);
+                console.error("Request failed", error);
             });
         } else {
             var oReq = new XMLHttpRequest();
@@ -165,7 +176,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
                 callback(JSON.parse(data));
             }
             oReq.onerror = function(error) {
-                console.log("Request failed", error);
+                console.error("Request failed", error);
             }
         }
     }
