@@ -57,7 +57,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
     var rsvpEmoji = {
         'yes': '✅',
         'no': '❌',
-        'interested': '💡'
+        'interested': '💡',
         'maybe': '⚖️'
     };
 
