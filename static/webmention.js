@@ -58,7 +58,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
         'yes': '✅',
         'no': '❌',
         'interested': '💡',
-        'maybe': '⚖️'
+        'maybe': '💭'
     };
 
     function reactImage(r) {
