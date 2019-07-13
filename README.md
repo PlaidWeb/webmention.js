@@ -10,7 +10,7 @@ Client-side library for rendering webmentions from webmention.io
    somewhere on your page (typically inside `<head>` but it doesn't really matter)
 4. You'll probably want to add some CSS rules to your stylesheet, in particular:
 
-    #webmentions img { max-height: 1.2em; margin-right: -1ex; }
+    `#webmentions img { max-height: 1.2em; margin-right: -1ex; }`
 
     See the included `webmention.css` file for an example.
 
