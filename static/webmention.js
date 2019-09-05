@@ -64,7 +64,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
     function reactImage(r) {
         var who = (r.author && r.author.name ? r.author.name : r.url.split('/')[2]);
         var response = reactTitle[r['wm-property']] || 'reacted';
-        var html = '<a class="reaction" rel="nofollow" title="' + who + ' ' + response + '" href="' + r.url + '">';
+        var html = '<a class="reaction" rel="nofollow" title="' + who + ' ' + response + '" href="' + r['wm-source'] + '">';
         if (r.author && r.author.photo) {
             html += '<img src="' + r.author.photo + '">';
         }
@@ -107,7 +107,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 
             html += reactImage(c);
 
-            html += ' <a class="source" rel="nofollow" href="' + c.url + '">';
+            html += ' <a class="source" rel="nofollow" href="' + c['wm-source'] + '">';
             if (c.author && c.author.name) {
                 html += c.author.name;
             } else {
@@ -139,7 +139,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
                 linktext = "(mention)";
             }
 
-            html += '<span class="' + linkclass + '" href="' + c.url + '">' + linktext + '</span>';
+            html += '<span class="' + linkclass + '" href="' + c['wm-source'] + '">' + linktext + '</span>';
 
             html += '</li>';
         });
