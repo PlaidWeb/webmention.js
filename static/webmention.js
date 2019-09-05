@@ -120,18 +120,20 @@ GitHub repo (for latest released versions, issue tracking, etc.):
                 linkclass = "name";
                 linktext = c.name;
             } else if (c.content && c.content.text) {
-                var words = c.content.text;
+                var text = c.content.text;
+                text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
                 if (textMaxWords) {
-                    var words = c.content.text.replace(/\s+/g,' ').split(' ', textMaxWords + 1);
+                    var words = text.replace(/\s+/g,' ').split(' ', textMaxWords + 1);
                     if (words.length > textMaxWords) {
                         words[textMaxWords - 1] += '&hellip;';
                         words = words.slice(0, textMaxWords);
+                        text = words.join(' ');
                     }
-                    words = words.join(' ');
                 }
 
                 linkclass = "text";
-                linktext = words;
+                linktext = text;
             } else {
                 linkclass = "name";
                 linktext = "(mention)";
