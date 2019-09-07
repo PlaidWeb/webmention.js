@@ -61,12 +61,16 @@ GitHub repo (for latest released versions, issue tracking, etc.):
         'maybe': '💭'
     };
 
+    function entities(text) {
+        return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
     function reactImage(r) {
-        var who = (r.author && r.author.name ? r.author.name : r.url.split('/')[2]);
+        var who = entities(r.author && r.author.name ? r.author.name : r.url.split('/')[2]);
         var response = reactTitle[r['wm-property']] || 'reacted';
         var html = '<a class="reaction" rel="nofollow" title="' + who + ' ' + response + '" href="' + r['wm-source'] + '">';
         if (r.author && r.author.photo) {
-            html += '<img src="' + r.author.photo + '">';
+            html += '<img src="' + entities(r.author.photo) + '">';
         }
         html += (reactEmoji[r['wm-property']] || '💥');
         if (r.rsvp && rsvpEmoji[r.rsvp]) {
@@ -109,9 +113,9 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 
             html += ' <a class="source" rel="nofollow" href="' + c['wm-source'] + '">';
             if (c.author && c.author.name) {
-                html += c.author.name;
+                html += entities(c.author.name);
             } else {
-                html += c.url.split('/')[2];
+                html += entities(c.url.split('/')[2]);
             }
             html += '</a>: ';
 
@@ -120,8 +124,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
                 linkclass = "name";
                 linktext = c.name;
             } else if (c.content && c.content.text) {
-                var text = c.content.text;
-                text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+                var text = entities(c.content.text);
 
                 if (textMaxWords) {
                     var words = text.replace(/\s+/g,' ').split(' ', textMaxWords + 1);
@@ -139,7 +142,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
                 linktext = "(mention)";
             }
 
-            html += '<span class="' + linkclass + '" href="' + c['wm-source'] + '">' + linktext + '</span>';
+            html += '<span class="' + linkclass + '" href="' + entities(c['wm-source']) + '">' + linktext + '</span>';
 
             html += '</li>';
         });
