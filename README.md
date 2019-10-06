@@ -26,5 +26,6 @@ Accepted arguments:
 * `data-id` - use this container ID instead of "webmentions"
 * `data-wordcount` - truncate the reply to this many words (adding an ellipsis to
     the end of the last word)
+* `data-max-webmentions` - the maximum webmentions to retrieve and render (defaults to 20)
 
 This is a quick hack that could be a lot better.
