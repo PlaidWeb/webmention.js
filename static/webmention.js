@@ -33,6 +33,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
     var refurl = document.currentScript.getAttribute('data-page-url') || window.location.href.replace(/#.*$/,'');
     var containerID = document.currentScript.getAttribute('data-id') || "webmentions";
     var textMaxWords = document.currentScript.getAttribute('data-wordcount');
+    var maxWebmentions = document.currentScript.getAttribute('data-max-webmentions') || '20';
 
     var reactTitle = {
         'in-reply-to': 'replied',
@@ -195,7 +196,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 
         var pageurl = stripurl(refurl);
 
-        var apiURL = 'https://webmention.io/api/mentions.jf2?target[]=' +
+        var apiURL = 'https://webmention.io/api/mentions.jf2?per-page=' + maxWebmentions + '&target[]=' +
             encodeURIComponent('http:' + pageurl) +
             '&target[]=' + encodeURIComponent('https:' + pageurl);
 
