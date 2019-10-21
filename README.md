@@ -27,5 +27,7 @@ Accepted arguments:
 * `data-wordcount` - truncate the reply to this many words (adding an ellipsis to
     the end of the last word)
 * `data-max-webmentions` - the maximum webmentions to retrieve and render (defaults to 20)
+* `data-mention-source` - which attribute to use for the source URL. Defaults to
+    `url`; use `wm-source` if you're concerned about authorship spoofing.
 
 This is a quick hack that could be a lot better.

@@ -34,6 +34,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
     var containerID = document.currentScript.getAttribute('data-id') || "webmentions";
     var textMaxWords = document.currentScript.getAttribute('data-wordcount');
     var maxWebmentions = document.currentScript.getAttribute('data-max-webmentions') || '20';
+    var mentionSource = document.currentScript.getAttribute('data-mention-source') || 'url';
 
     var reactTitle = {
         'in-reply-to': 'replied',
@@ -69,7 +70,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
     function reactImage(r) {
         var who = entities(r.author && r.author.name ? r.author.name : r.url.split('/')[2]);
         var response = reactTitle[r['wm-property']] || 'reacted';
-        var html = '<a class="reaction" rel="nofollow" title="' + who + ' ' + response + '" href="' + r['wm-source'] + '">';
+        var html = '<a class="reaction" rel="nofollow" title="' + who + ' ' + response + '" href="' + r[mentionSource] + '">';
         if (r.author && r.author.photo) {
             html += '<img src="' + entities(r.author.photo) + '">';
         }
@@ -112,7 +113,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 
             html += reactImage(c);
 
-            html += ' <a class="source" rel="nofollow" href="' + c['wm-source'] + '">';
+            html += ' <a class="source" rel="nofollow" href="' + c[mentionSource] + '">';
             if (c.author && c.author.name) {
                 html += entities(c.author.name);
             } else {
@@ -143,7 +144,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
                 linktext = "(mention)";
             }
 
-            html += '<span class="' + linkclass + '" href="' + entities(c['wm-source']) + '">' + linktext + '</span>';
+            html += '<span class="' + linkclass + '" href="' + entities(c[mentionSource]) + '">' + linktext + '</span>';
 
             html += '</li>';
         });
