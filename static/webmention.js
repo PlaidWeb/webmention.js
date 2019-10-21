@@ -144,7 +144,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
                 linktext = "(mention)";
             }
 
-            html += '<span class="' + linkclass + '" href="' + entities(c[mentionSource]) + '">' + linktext + '</span>';
+            html += '<span class="' + linkclass + '">' + linktext + '</span>';
 
             html += '</li>';
         });
