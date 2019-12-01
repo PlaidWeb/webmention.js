@@ -29,12 +29,19 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 */
 
 
-(function() {
-    var refurl = document.currentScript.getAttribute('data-page-url') || window.location.href.replace(/#.*$/,'');
-    var containerID = document.currentScript.getAttribute('data-id') || "webmentions";
-    var textMaxWords = document.currentScript.getAttribute('data-wordcount');
-    var maxWebmentions = document.currentScript.getAttribute('data-max-webmentions') || '20';
-    var mentionSource = document.currentScript.getAttribute('data-mention-source') || 'url';
+(function () {
+    "use strict";
+
+    function getCfg(key, dfl) {
+        return document.currentScript.getAttribute("data-" + key) || dfl;
+    }
+
+    var refurl = getCfg('page-url',
+                        window.location.href.replace(/#.*$/, ''));
+    var containerID = getCfg('data-id', "webmentions");
+    var textMaxWords = getCfg('wordcount');
+    var maxWebmentions = getCfg('max-webmentions', '20');
+    var mentionSource = getCfg('mention-source', 'url');
 
     var reactTitle = {
         'in-reply-to': 'replied',
@@ -43,7 +50,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
         'bookmark-of': 'bookmarked',
         'mention-of': 'mentioned',
         'rsvp': 'RSVPed',
-        'follow-of': 'followed',
+        'follow-of': 'followed'
     };
 
     var reactEmoji = {
@@ -53,7 +60,7 @@ GitHub repo (for latest released versions, issue tracking, etc.):
         'bookmark-of': '⭐️',
         'mention-of': '💬',
         'rsvp': '📅',
-        'follow-of': '🐜',
+        'follow-of': '🐜'
     };
 
     var rsvpEmoji = {
@@ -64,13 +71,18 @@ GitHub repo (for latest released versions, issue tracking, etc.):
     };
 
     function entities(text) {
-        return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        return text.replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
     }
 
     function reactImage(r) {
-        var who = entities(r.author && r.author.name ? r.author.name : r.url.split('/')[2]);
+        var who = entities((r.author && r.author.name)
+                           ? r.author.name
+                           : r.url.split('/')[2]);
         var response = reactTitle[r['wm-property']] || 'reacted';
-        var html = '<a class="reaction" rel="nofollow" title="' + who + ' ' + response + '" href="' + r[mentionSource] + '">';
+        var html = '<a class="reaction" rel="nofollow" title="' + who + ' ' +
+            response + '" href="' + r[mentionSource] + '">';
         if (r.author && r.author.photo) {
             html += '<img src="' + entities(r.author.photo) + '">';
         }
@@ -106,14 +118,16 @@ GitHub repo (for latest released versions, issue tracking, etc.):
     }
 
     function formatComments(comments) {
-        var html = '<h2>' + comments.length + ' Response' + (comments.length > 1 ? 's' : '') +
+        var html = '<h2>' + comments.length + ' Response' +
+            (comments.length > 1 ? 's' : '') +
             '</h2><ul class="comments">';
         comments.forEach(function(c) {
             html += '<li>';
 
             html += reactImage(c);
 
-            html += ' <a class="source" rel="nofollow" href="' + c[mentionSource] + '">';
+            html += ' <a class="source" rel="nofollow" href="' +
+                c[mentionSource] + '">';
             if (c.author && c.author.name) {
                 html += entities(c.author.name);
             } else {
@@ -121,7 +135,8 @@ GitHub repo (for latest released versions, issue tracking, etc.):
             }
             html += '</a>: ';
 
-            var linkclass, linktext;
+            var linkclass;
+            var linktext;
             if (c.name) {
                 linkclass = "name";
                 linktext = c.name;
@@ -129,7 +144,8 @@ GitHub repo (for latest released versions, issue tracking, etc.):
                 var text = entities(c.content.text);
 
                 if (textMaxWords) {
-                    var words = text.replace(/\s+/g,' ').split(' ', textMaxWords + 1);
+                    var words = text.replace(/\s+/g,' ')
+                        .split(' ', textMaxWords + 1);
                     if (words.length > textMaxWords) {
                         words[textMaxWords - 1] += '&hellip;';
                         words = words.slice(0, textMaxWords);
@@ -154,19 +170,20 @@ GitHub repo (for latest released versions, issue tracking, etc.):
     }
 
     function formatReactions(reacts) {
-        var html = '<h2>' + reacts.length + ' Reaction' + (reacts.length > 1 ? 's' : '') +
+        var html = '<h2>' + reacts.length + ' Reaction' +
+            (reacts.length > 1 ? 's' : '') +
             '</h2><ul class="reacts">';
 
         reacts.forEach(function(r) {
             html += reactImage(r);
-        })
+        });
 
         return html;
     }
 
     function getData(url, callback) {
-        if (fetch) {
-            fetch(url).then(function(response) {
+        if (window.fetch) {
+            window.fetch(url).then(function(response) {
                 if (response.status >= 200 && response.status < 300) {
                     return Promise.resolve(response);
                 } else {
@@ -181,14 +198,14 @@ GitHub repo (for latest released versions, issue tracking, etc.):
             var oReq = new XMLHttpRequest();
             oReq.onload = function(data) {
                 callback(JSON.parse(data));
-            }
+            };
             oReq.onerror = function(error) {
                 console.error("Request failed", error);
-            }
+            };
         }
     }
 
-    window.addEventListener("load", function() {
+    window.addEventListener("load", function () {
         var container = document.getElementById(containerID);
         if (!container) {
             // no container, so do nothing
@@ -197,12 +214,13 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 
         var pageurl = stripurl(refurl);
 
-        var apiURL = 'https://webmention.io/api/mentions.jf2?per-page=' + maxWebmentions + '&target[]=' +
+        var apiURL = 'https://webmention.io/api/mentions.jf2?per-page=' +
+            maxWebmentions + '&target[]=' +
             encodeURIComponent('http:' + pageurl) +
             '&target[]=' + encodeURIComponent('https:' + pageurl);
 
         getData(apiURL, function(json) {
-            html = '';
+            var html = '';
 
             var comments = [];
             var collects = [];
@@ -218,7 +236,9 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 
             json.children.forEach(function(c) {
                 var store = mapping[c['wm-property']];
-                if (store) store.push(c);
+                if (store) {
+                    store.push(c);
+                }
             });
 
             // format the comment-type things
@@ -235,4 +255,4 @@ GitHub repo (for latest released versions, issue tracking, etc.):
         });
     });
 
-})();
+}());
