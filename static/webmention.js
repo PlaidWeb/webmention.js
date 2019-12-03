@@ -2,7 +2,7 @@
 
 Simple thing for embedding webmentions from webmention.io into a page, client-side.
 
-(c)2018 fluffy (http://beesbuzz.biz)
+(c)2018-2019 fluffy (http://beesbuzz.biz)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,49 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 
     http://github.com/PlaidWeb/webmention.js
 
+Basic usage:
+
+<script src="/path/to/webmention.js" data-param="val" ... async />
+<div id="webmentions"></div>
+
+Allowed parameters:
+
+    page-url:
+
+        The base URL to use for this page. Defaults to window.location
+
+    add-urls:
+
+        Additional URLs to check, separated by |s
+
+    id:
+
+        The HTML ID for the object to fill in with the webmention data.
+        Defaults to "webmentions"
+
+    wordcount:
+
+        The maximum number of words to render in reply mentions.
+
+    max-webmentions:
+
+        The maximum number of mentions to retrieve. Defaults to 30.
+
+    prevent-spoofing:
+
+        By default, Webmentions render using the mf2 'url' element, which plays
+        nicely with webmention bridges (such as brid.gy and telegraph)
+        but allows certain spoofing attacks. If you would like to prevent
+        spoofing, set this to 1.
+
+A more detailed example:
+
+<script src="/path/to/webmention.js"
+    data-id="webmentionContainer"
+    data-wordcount="30"
+    data-prevent-spoofing="1"
+    />
+
 */
 
 
@@ -38,10 +81,11 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 
     var refurl = getCfg('page-url',
                         window.location.href.replace(/#.*$/, ''));
+    var addurls = getCfg('add-urls', undefined);
     var containerID = getCfg('data-id', "webmentions");
     var textMaxWords = getCfg('wordcount');
-    var maxWebmentions = getCfg('max-webmentions', '20');
-    var mentionSource = getCfg('mention-source', 'url');
+    var maxWebmentions = getCfg('max-webmentions', 30);
+    var mentionSource = getCfg('prevent-spoofing') ? 'wm-source' : 'url';
 
     var reactTitle = {
         'in-reply-to': 'replied',
@@ -212,12 +256,20 @@ GitHub repo (for latest released versions, issue tracking, etc.):
             return;
         }
 
-        var pageurl = stripurl(refurl);
+        var pages = [stripurl(refurl)];
+        if (!!addurls) {
+            addurls.split('|').forEach(function (url) {
+                pages.push(stripurl(url));
+            })
+        }
 
         var apiURL = 'https://webmention.io/api/mentions.jf2?per-page=' +
-            maxWebmentions + '&target[]=' +
-            encodeURIComponent('http:' + pageurl) +
-            '&target[]=' + encodeURIComponent('https:' + pageurl);
+            maxWebmentions;
+
+        pages.forEach(function (path) {
+            apiURL += '&target[]=' + encodeURIComponent('http:' + path) +
+                '&target[]=' + encodeURIComponent('https:' + path);
+        });
 
         getData(apiURL, function(json) {
             var html = '';
