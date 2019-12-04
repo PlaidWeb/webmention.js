@@ -40,3 +40,8 @@ Accepted arguments (see the source for more details):
     significantly uglier
 
 Look at the source code itself for more detailed information.
+
+## Development
+
+To produce a minified JS, first install Node dependencies (via `npm install`) and
+then run `npm run minify`.

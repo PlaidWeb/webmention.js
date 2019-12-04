@@ -1,0 +1,30 @@
+{
+  "name": "webmention.js",
+  "version": "0.1.0",
+  "description": "Client-side library for rendering webmentions from webmention.io",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "minify": "terser --compress --mangle --comments all --ecma 5 --output ./static/webmention.min.js -- ./static/webmention.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PlaidWeb/webmention.js.git"
+  },
+  "keywords": [
+    "IndieWeb",
+    "Webmentions"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PlaidWeb/webmention.js/issues"
+  },
+  "homepage": "https://github.com/PlaidWeb/webmention.js#readme",
+  "devDependencies": {
+    "terser": "4.4.2"
+  }
+}
