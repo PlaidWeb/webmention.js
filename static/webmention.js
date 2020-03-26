@@ -125,7 +125,7 @@ A more detailed example:
                            ? r.author.name
                            : r.url.split('/')[2]);
         var response = reactTitle[r['wm-property']] || 'reacted';
-        var html = '<a class="reaction" rel="nofollow" title="' + who + ' ' +
+        var html = '<a class="reaction" rel="nofollow ugc" title="' + who + ' ' +
             response + '" href="' + r[mentionSource] + '">';
         if (r.author && r.author.photo) {
             html += '<img src="' + entities(r.author.photo) + '">';
@@ -170,7 +170,7 @@ A more detailed example:
 
             html += reactImage(c);
 
-            html += ' <a class="source" rel="nofollow" href="' +
+            html += ' <a class="source" rel="nofollow ugc" href="' +
                 c[mentionSource] + '">';
             if (c.author && c.author.name) {
                 html += entities(c.author.name);
