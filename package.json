@@ -1,13 +1,13 @@
 {
   "name": "webmention.js",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Client-side library for rendering webmentions from webmention.io",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "minify": "terser --compress --mangle --comments all --ecma 5 --output ./static/webmention.min.js -- ./static/webmention.js",
+    "minify": "terser --compress --mangle --ecma 5 --output ./static/webmention.min.js -- ./static/webmention.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

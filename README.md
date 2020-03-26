@@ -3,11 +3,11 @@ Client-side library for rendering webmentions from [webmention.io](https://webme
 
 ## Usage
 
-1. Copy the Javascript file from the `static/` directory to somewhere on your
-    website
+1. Copy the Javascript file (`webmention.min.js`) from the `static/` directory to
+    somewhere on your website
 2. Put a `<div id="webmentions"></div>` where you want your webmentions to be
     embedded
-3. Put a `<script src="/path/to/webmention.js" async></script>`
+3. Put a `<script src="/path/to/webmention.min.js" async></script>`
     somewhere on your page (typically inside `<head>` but it doesn't really
     matter), replacing `/path/to/` with whatever directory the Javascript
     file is in
@@ -20,13 +20,13 @@ Client-side library for rendering webmentions from [webmention.io](https://webme
 You can also pass in some arguments, for example:
 
 ```html
-<script src="/path/to/webmention.js" data-id="webmention-container" async></script>
+<script src="/path/to/webmention.min.js" data-id="webmention-container" async></script>
 ```
 
 Note that the `async` isn't strictly necessary but it can speed up apparent page
 loads.
 
-Accepted arguments (see the source for more details):
+Accepted arguments (see the source in `static/webmention.js` for more details):
 
 * `page-url` -- use this reference URL instead of the current browser location
 * `add-urls` -- additional URLs to include, separated by a `|`

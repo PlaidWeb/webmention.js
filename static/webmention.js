@@ -1,4 +1,4 @@
-﻿/* webmention.js
+﻿/** @preserve webmention.js
 
 Simple thing for embedding webmentions from webmention.io into a page, client-side.
 
@@ -26,6 +26,9 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 
     http://github.com/PlaidWeb/webmention.js
 
+*/
+
+/**
 Basic usage:
 
 <script src="/path/to/webmention.js" data-param="val" ... async />
