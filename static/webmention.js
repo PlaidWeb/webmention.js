@@ -276,7 +276,7 @@ A more detailed example:
         }
 
         var apiURL = 'https://webmention.io/api/mentions.jf2?per-page=' +
-            maxWebmentions; + '&sort-by=' + sortBy + '&sort-dir=' + sortDir;
+            maxWebmentions + '&sort-by=' + sortBy + '&sort-dir=' + sortDir;
 
         pages.forEach(function (path) {
             apiURL += '&target[]=' + encodeURIComponent('http:' + path) +
