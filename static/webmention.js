@@ -1,8 +1,8 @@
-﻿/** @preserve webmention.js
+﻿/* webmention.js
 
 Simple thing for embedding webmentions from webmention.io into a page, client-side.
 
-(c)2018-2020 fluffy (http://beesbuzz.biz)
+(c)2018 fluffy (http://beesbuzz.biz)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,9 +26,6 @@ GitHub repo (for latest released versions, issue tracking, etc.):
 
     http://github.com/PlaidWeb/webmention.js
 
-*/
-
-/**
 Basic usage:
 
 <script src="/path/to/webmention.js" data-param="val" ... async />
@@ -64,6 +61,16 @@ Allowed parameters:
         but allows certain spoofing attacks. If you would like to prevent
         spoofing, set this to 1.
 
+    sort-by:
+
+        What to order the responses by; defaults to 'published'. See
+        https://github.com/aaronpk/webmention.io#api
+
+    sort-dir:
+
+        The order to sort the responses by; defaults to 'up' (i.e. oldest
+        first). See https://github.com/aaronpk/webmention.io#api
+
 A more detailed example:
 
 <script src="/path/to/webmention.js"
@@ -89,6 +96,8 @@ A more detailed example:
     var textMaxWords = getCfg('wordcount');
     var maxWebmentions = getCfg('max-webmentions', 30);
     var mentionSource = getCfg('prevent-spoofing') ? 'wm-source' : 'url';
+    var sortBy = getCfg('sort-by', 'published');
+    var sortDir = getCfg('sort-dir', 'up');
 
     var reactTitle = {
         'in-reply-to': 'replied',
@@ -267,7 +276,7 @@ A more detailed example:
         }
 
         var apiURL = 'https://webmention.io/api/mentions.jf2?per-page=' +
-            maxWebmentions;
+            maxWebmentions; + '&sort-by=' + sortBy + '&sort-dir=' + sortDir;
 
         pages.forEach(function (path) {
             apiURL += '&target[]=' + encodeURIComponent('http:' + path) +

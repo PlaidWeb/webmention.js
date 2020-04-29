@@ -40,6 +40,8 @@ Accepted arguments (see the source in `static/webmention.js` for more details):
     but will make mentions from webmention bridges (such as
     [brid.gy](https://brid.gy) or [Telegraph](https://telegraph.p3k.io/))
     significantly uglier
+* `sort-by` -- what to sort the responses by; defaults to published time (see the [webmention API](https://github.com/aaronpk/webmention.io#api) for possible values)
+* `sort-order` -- what order to sort the responses by; defaults to `'up'` (ascending).
 
 Look at the source code itself for more detailed information.
 
