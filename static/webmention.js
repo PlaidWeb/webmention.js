@@ -2,7 +2,7 @@
 
 Simple thing for embedding webmentions from webmention.io into a page, client-side.
 
-(c)2018 fluffy (http://beesbuzz.biz)
+(c)2018-2020 fluffy (http://beesbuzz.biz)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
