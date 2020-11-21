@@ -129,7 +129,8 @@ A more detailed example:
     function entities(text) {
         return text.replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;');
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
     }
 
     function reactImage(r) {
