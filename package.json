@@ -2,7 +2,7 @@
   "name": "webmention.js",
   "version": "0.3.3",
   "description": "Client-side library for rendering webmentions from webmention.io",
-  "main": "static/webmention.min.js",
+  "browser": "static/webmention.min.js",
   "directories": {
     "test": "tests"
   },
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PlaidWeb/webmention.js.git"
+    "url": "github:PlaidWeb/webmention.js"
   },
   "keywords": [
     "IndieWeb",
