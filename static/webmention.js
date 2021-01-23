@@ -71,12 +71,20 @@ Allowed parameters:
         The order to sort the responses by; defaults to 'up' (i.e. oldest
         first). See https://github.com/aaronpk/webmention.io#api
 
+    comments-are-reactions:
+
+        If set to "true", will display comment-type responses
+        (replies/mentions/etc.) as being part of the reactions
+        (favorites/bookmarks/etc.) instead of in a separate comment list.
+        Defaults to "false".
+
 A more detailed example:
 
 <script src="/path/to/webmention.js"
     data-id="webmentionContainer"
     data-wordcount="30"
     data-prevent-spoofing="1"
+    data-responses-are-reactions="true"
     />
 
 */
@@ -92,12 +100,13 @@ A more detailed example:
     var refurl = getCfg('page-url',
                         window.location.href.replace(/#.*$/, ''));
     var addurls = getCfg('add-urls', undefined);
-    var containerID = getCfg('data-id', "webmentions");
+    var containerID = getCfg('id', "webmentions");
     var textMaxWords = getCfg('wordcount');
     var maxWebmentions = getCfg('max-webmentions', 30);
     var mentionSource = getCfg('prevent-spoofing') ? 'wm-source' : 'url';
     var sortBy = getCfg('sort-by', 'published');
     var sortDir = getCfg('sort-dir', 'up');
+    var commentsAreReactions = (getCfg('comments-are-reactions', 'false') == 'true');
 
     var reactTitle = {
         'in-reply-to': 'replied',
@@ -133,11 +142,14 @@ A more detailed example:
             .replace(/"/g, '&quot;');
     }
 
-    function reactImage(r) {
+    function reactImage(r, isComment) {
         var who = entities((r.author && r.author.name)
                            ? r.author.name
                            : r.url.split('/')[2]);
         var response = reactTitle[r['wm-property']] || 'reacted';
+        if (!isComment && r.content && r.content.text) {
+            response += ": " + extractComment(r);
+        }
         var html = '<a class="reaction" rel="nofollow ugc" title="' + who + ' ' +
             response + '" href="' + r[mentionSource] + '">';
         if (r.author && r.author.photo) {
@@ -174,6 +186,22 @@ A more detailed example:
         return filtered;
     }
 
+    function extractComment(c) {
+        var text = entities(c.content.text);
+
+        if (textMaxWords) {
+            var words = text.replace(/\s+/g,' ')
+                .split(' ', textMaxWords + 1);
+            if (words.length > textMaxWords) {
+                words[textMaxWords - 1] += '&hellip;';
+                words = words.slice(0, textMaxWords);
+                text = words.join(' ');
+            }
+        }
+
+        return text;
+    }
+
     function formatComments(comments) {
         var html = '<h2>' + comments.length + ' Response' +
             (comments.length > 1 ? 's' : '') +
@@ -181,7 +209,7 @@ A more detailed example:
         comments.forEach(function(c) {
             html += '<li>';
 
-            html += reactImage(c);
+            html += reactImage(c, true);
 
             html += ' <a class="source" rel="nofollow ugc" href="' +
                 c[mentionSource] + '">';
@@ -198,20 +226,8 @@ A more detailed example:
                 linkclass = "name";
                 linktext = c.name;
             } else if (c.content && c.content.text) {
-                var text = entities(c.content.text);
-
-                if (textMaxWords) {
-                    var words = text.replace(/\s+/g,' ')
-                        .split(' ', textMaxWords + 1);
-                    if (words.length > textMaxWords) {
-                        words[textMaxWords - 1] += '&hellip;';
-                        words = words.slice(0, textMaxWords);
-                        text = words.join(' ');
-                    }
-                }
-
                 linkclass = "text";
-                linktext = text;
+                linktext = extractComment(c);
             } else {
                 linkclass = "name";
                 linktext = "(mention)";
@@ -289,6 +305,9 @@ A more detailed example:
 
             var comments = [];
             var collects = [];
+            if (commentsAreReactions) {
+                comments = collects;
+            }
 
             var mapping = {
                 "in-reply-to": comments,
@@ -307,7 +326,7 @@ A more detailed example:
             });
 
             // format the comment-type things
-            if (comments.length > 0) {
+            if (comments.length > 0 && comments !== collects) {
                 html += formatComments(dedupe(comments));
             }
 
