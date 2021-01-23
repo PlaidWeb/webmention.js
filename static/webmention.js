@@ -59,7 +59,7 @@ Allowed parameters:
         By default, Webmentions render using the mf2 'url' element, which plays
         nicely with webmention bridges (such as brid.gy and telegraph)
         but allows certain spoofing attacks. If you would like to prevent
-        spoofing, set this to 1.
+        spoofing, set this to a non-empty string (e.g. "true").
 
     sort-by:
 
@@ -73,17 +73,16 @@ Allowed parameters:
 
     comments-are-reactions:
 
-        If set to "true", will display comment-type responses
+        If set to a non-empty string (e.g. "true"), will display comment-type responses
         (replies/mentions/etc.) as being part of the reactions
         (favorites/bookmarks/etc.) instead of in a separate comment list.
-        Defaults to "false".
 
 A more detailed example:
 
 <script src="/path/to/webmention.min.js"
     data-id="webmentionContainer"
     data-wordcount="30"
-    data-prevent-spoofing="1"
+    data-prevent-spoofing="true"
     data-comments-are-reactions="true"
     />
 
@@ -106,7 +105,7 @@ A more detailed example:
     var mentionSource = getCfg('prevent-spoofing') ? 'wm-source' : 'url';
     var sortBy = getCfg('sort-by', 'published');
     var sortDir = getCfg('sort-dir', 'up');
-    var commentsAreReactions = (getCfg('comments-are-reactions', 'false') == 'true');
+    var commentsAreReactions = getCfg('comments-are-reactions');
 
     var reactTitle = {
         'in-reply-to': 'replied',
