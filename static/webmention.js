@@ -80,11 +80,11 @@ Allowed parameters:
 
 A more detailed example:
 
-<script src="/path/to/webmention.js"
+<script src="/path/to/webmention.min.js"
     data-id="webmentionContainer"
     data-wordcount="30"
     data-prevent-spoofing="1"
-    data-responses-are-reactions="true"
+    data-comments-are-reactions="true"
     />
 
 */
