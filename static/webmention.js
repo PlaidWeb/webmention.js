@@ -24,7 +24,7 @@ SOFTWARE.
 
 GitHub repo (for latest released versions, issue tracking, etc.):
 
-    http://github.com/PlaidWeb/webmention.js
+    https://github.com/PlaidWeb/webmention.js
 
 Basic usage:
 
