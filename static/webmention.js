@@ -152,7 +152,7 @@ A more detailed example:
         var html = '<a class="reaction" rel="nofollow ugc" title="' + who + ' ' +
             response + '" href="' + r[mentionSource] + '">';
         if (r.author && r.author.photo) {
-            html += '<img src="' + entities(r.author.photo) + '">';
+            html += '<img src="' + entities(r.author.photo) + '" loading="lazy">';
         }
         html += (reactEmoji[r['wm-property']] || '💥');
         if (r.rsvp && rsvpEmoji[r.rsvp]) {
