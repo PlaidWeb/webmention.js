@@ -52,3 +52,12 @@ Look at the source code itself for more detailed information.
 
 To produce a minified JS, first install Node dependencies (via `npm install`) and
 then run `npm run minify`.
+
+## Contributors
+
+Listed in order of first contribution:
+
+* [fluffy](https://github.com/fluffy-critter)
+* [Jamie Tanna](https://github.com/jamietanna)
+* [André Jaenisch](https://github.com/Ryuno-Ki)
+* [Christian Oliff](https://github.com/coliff)
