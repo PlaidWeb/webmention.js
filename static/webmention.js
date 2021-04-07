@@ -212,13 +212,8 @@ A more detailed example:
         return text;
     }
 
-    function pluralise(word, count) {
-      // TODO: This pluralising depends on the language but assumes English
-      return t(word) + count > 1 ? 's' : '';
-    }
-
     function formatComments(comments) {
-        var html = '<h2>' + comments.length + pluralise(' Response', comments.length) +
+        var html = '<h2>' + comments.length + t(' Responses') +
             '</h2><ul class="comments">';
         comments.forEach(function(c) {
             html += '<li>';
@@ -257,7 +252,7 @@ A more detailed example:
     }
 
     function formatReactions(reacts) {
-        var html = '<h2>' + reacts.length + pluralise(' Reaction', reacts.length) +
+        var html = '<h2>' + reacts.length + t(' Reactions') +
             '</h2><ul class="reacts">';
 
         reacts.forEach(function(r) {
