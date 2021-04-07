@@ -215,8 +215,7 @@ A more detailed example:
     }
 
     function formatComments(comments) {
-        var html = '<h2>' + comments.length + t(' Responses') +
-            '</h2><ul class="comments">';
+        var html = '<h2>' + t('Responses') + '</h2><ul class="comments">';
         comments.forEach(function(c) {
             html += '<li>';
 
@@ -254,8 +253,7 @@ A more detailed example:
     }
 
     function formatReactions(reacts) {
-        var html = '<h2>' + reacts.length + t(' Reactions') +
-            '</h2><ul class="reacts">';
+        var html = '<h2>' + t('Reactions') + '</h2><ul class="reacts">';
 
         reacts.forEach(function(r) {
             html += reactImage(r);
