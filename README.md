@@ -48,11 +48,10 @@ Accepted arguments (see the source in `static/webmention.js` for more details):
 
 Look at the source code itself for more detailed information.
 
-## Internationalisation
+## Localization/Internationalization
 
-You can use [i18next](https://www.i18next.com/) with this library!
-
-Therefore, translate these strings into the target language:
+This library supports [i18next](https://www.i18next.com/) to provide
+translations into other languages. The following strings are supported:
 
 | key        | usage                   |
 |------------|-------------------------|
