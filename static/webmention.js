@@ -1,4 +1,4 @@
-﻿/* webmention.js
+/* webmention.js
 
 Simple thing for embedding webmentions from webmention.io into a page, client-side.
 
@@ -79,6 +79,12 @@ Allowed parameters:
 
 A more detailed example:
 
+<!-- If you want to translate the UI -->
+<script src="/path/to/umd/i18next.js"></script>
+<script>
+    // Setup i18next as described in https://www.i18next.com/overview/getting-started#basic-sample
+</script>
+<!-- Otherwise, only using the following is fine -->
 <script src="/path/to/webmention.min.js"
     data-id="webmentionContainer"
     data-wordcount="30"
@@ -91,6 +97,12 @@ A more detailed example:
 
 (function () {
     "use strict";
+
+    // Shim i18next
+    window.i18next = window.i18next || {
+      t: function t(key) { return key; }
+    }
+    var t = window.i18next.t.bind(window.i18next);
 
     function getCfg(key, dfl) {
         return document.currentScript.getAttribute("data-" + key) || dfl;
@@ -108,13 +120,13 @@ A more detailed example:
     var commentsAreReactions = getCfg('comments-are-reactions');
 
     var reactTitle = {
-        'in-reply-to': 'replied',
-        'like-of': 'liked',
-        'repost-of': 'reposted',
-        'bookmark-of': 'bookmarked',
-        'mention-of': 'mentioned',
-        'rsvp': 'RSVPed',
-        'follow-of': 'followed'
+        'in-reply-to': t('replied'),
+        'like-of': t('liked'),
+        'repost-of': t('reposted'),
+        'bookmark-of': t('bookmarked'),
+        'mention-of': t('mentioned'),
+        'rsvp': t('RSVPed'),
+        'follow-of': t('followed')
     };
 
     var reactEmoji = {
@@ -145,7 +157,7 @@ A more detailed example:
         var who = entities((r.author && r.author.name)
                            ? r.author.name
                            : r.url.split('/')[2]);
-        var response = reactTitle[r['wm-property']] || 'reacted';
+        var response = reactTitle[r['wm-property']] || t('reacted');
         if (!isComment && r.content && r.content.text) {
             response += ": " + extractComment(r);
         }
@@ -203,9 +215,7 @@ A more detailed example:
     }
 
     function formatComments(comments) {
-        var html = '<h2>' + comments.length + ' Response' +
-            (comments.length > 1 ? 's' : '') +
-            '</h2><ul class="comments">';
+        var html = '<h2>' + t('Responses') + '</h2><ul class="comments">';
         comments.forEach(function(c) {
             html += '<li>';
 
@@ -230,7 +240,7 @@ A more detailed example:
                 linktext = extractComment(c);
             } else {
                 linkclass = "name";
-                linktext = "(mention)";
+                linktext = "(" + t("mention") + ")";
             }
 
             html += '<span class="' + linkclass + '">' + linktext + '</span>';
@@ -243,9 +253,7 @@ A more detailed example:
     }
 
     function formatReactions(reacts) {
-        var html = '<h2>' + reacts.length + ' Reaction' +
-            (reacts.length > 1 ? 's' : '') +
-            '</h2><ul class="reacts">';
+        var html = '<h2>' + t('Reactions') + '</h2><ul class="reacts">';
 
         reacts.forEach(function(r) {
             html += reactImage(r);
