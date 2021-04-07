@@ -48,6 +48,26 @@ Accepted arguments (see the source in `static/webmention.js` for more details):
 
 Look at the source code itself for more detailed information.
 
+## Internationalisation
+
+You can use [i18next](https://www.i18next.com/) with this library!
+
+Therefore, translate these strings into the target language:
+
+| key        | usage                   |
+|------------|-------------------------|
+| replied    | react image hover title |
+| liked      | react image hover title |
+| reposted   | react image hover title |
+| reacted    | react image hover title |
+| bookmarked | react image hover title |
+| mentioned  | react image hover title |
+| RSVPed     | react image hover title |
+| followed   | react image hover title |
+| Responses  | Headline for comments   |
+| mention    | formatted comment       |
+| Reactions  | Headline for reactions  |
+
 ## Development
 
 To produce a minified JS, first install Node dependencies (via `npm install`) and
