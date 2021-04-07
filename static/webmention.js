@@ -79,10 +79,12 @@ Allowed parameters:
 
 A more detailed example:
 
-<script src="/path/to/i18next.js"></script>
+<!-- If you want to translate the UI -->
+<script src="/path/to/umd/i18next.js"></script>
 <script>
     // Setup i18next as described in https://www.i18next.com/overview/getting-started#basic-sample
 </script>
+<!-- Otherwise, only using the following is fine -->
 <script src="/path/to/webmention.min.js"
     data-id="webmentionContainer"
     data-wordcount="30"
