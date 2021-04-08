@@ -128,14 +128,14 @@ A more detailed example:
   const commentsAreReactions = getCfg("comments-are-reactions");
 
   /**
-   * @typedef ReactEmoji
+   * @typedef MentionType
    * @type {"in-reply-to"|"like-of"|"repost-of"|"bookmark-of"|"mention-of"|"rsvp"|"follow-of"}
    */
 
   /**
    * Maps a reaction to a hover title.
    *
-   * @type {Record<ReactEmoji, string>}
+   * @type {Record<MentionType, string>}
    */
   const reactTitle = {
     "in-reply-to": t("replied"),
@@ -150,7 +150,7 @@ A more detailed example:
   /**
    * Maps a reaction to an emoji.
    *
-   * @type {Record<ReactEmoji, string>}
+   * @type {Record<MentionType, string>}
    */
   const reactEmoji = {
     "in-reply-to": "💬",
@@ -343,7 +343,7 @@ A more detailed example:
    * @property {Object?}     content
    * @property {string?}     content.text
    * @property {RSVPEmoji?}  rsvp
-   * @property {ReactEmoji?} wm-property
+   * @property {MentionType?} wm-property
    * @property {string?}     wm-source
    */
 
@@ -405,7 +405,6 @@ A more detailed example:
       }
     } catch(error) {
       console.error("Request failed", error);
-      // Burn the app with fire 🔥
       throw error;
     }
 
@@ -418,7 +417,7 @@ A more detailed example:
       comments = collects;
     }
 
-    /** @type {Record<ReactEmoji, Array<Reaction>>} */
+    /** @type {Record<MentionType, Array<Reaction>>} */
     const mapping = {
       "in-reply-to": comments,
       "like-of": collects,
@@ -430,7 +429,7 @@ A more detailed example:
     };
 
     json.children.forEach(function(child) {
-      // This seem to push the reaction into either comments or collects
+      // Map each mention into its respective container
       const store = mapping[child['wm-property']];
       if (store) {
         store.push(child);
