@@ -434,6 +434,7 @@ A more detailed example:
         "like-of": collects,
         "repost-of": collects,
         "bookmark-of": collects,
+        "follow-of": collects,
         "mention-of": comments,
         "rsvp": comments
       };
