@@ -365,31 +365,6 @@ A more detailed example:
   }
 
   /**
-   * Fetch the stored data.
-   *
-   * @param {string} url
-   * @param {*} callback
-   */
-  function getData(url, callback) {
-    window
-      .fetch(url)
-      .then(function(response) {
-        if (response.status >= 200 && response.status < 300) {
-          return Promise.resolve(response);
-        } else {
-          return Promise.reject(new Error(response.statusText));
-        }
-      })
-      .then(function(response) {
-        return response.json();
-      })
-      .then(callback)
-      .catch(function(error) {
-        console.error("Request failed", error);
-      });
-  }
-
-  /**
    * @typedef WebmentionResponse
    * @type {Object}
    * @property {Array<Reaction>} children
@@ -398,7 +373,7 @@ A more detailed example:
   /**
    * Register event listener.
    */
-  window.addEventListener("load", function () {
+  window.addEventListener("load", async function () {
     const container = document.getElementById(containerID);
     if (!container) {
       // no container, so do nothing
@@ -418,48 +393,62 @@ A more detailed example:
       apiURL += `&target[]=${encodeURIComponent('http:' + path)}&target[]=${encodeURIComponent('https:' + path)}`;
     });
 
-    getData(apiURL, function(/** @type {WebmentionResponse} */json) {
-      /** @type {Array<Reaction>} */
-      let comments = [];
-      /** @type {Array<Reaction>} */
-      const collects = [];
-
-      if (commentsAreReactions) {
-        comments = collects;
+    /** @type {WebmentionResponse} */
+    let json = {};
+    try {
+      const response = await window.fetch(apiURL);
+      if (response.status >= 200 && response.status < 300) {
+        json = await response.json();
+      } else {
+        console.error("Could not parse response");
+        new Error(response.statusText);
       }
+    } catch(error) {
+      console.error("Request failed", error);
+      // Burn the app with fire 🔥
+      throw error;
+    }
 
-      /** @type {Record<ReactEmoji, Array<Reaction>>} */
-      const mapping = {
-        "in-reply-to": comments,
-        "like-of": collects,
-        "repost-of": collects,
-        "bookmark-of": collects,
-        "follow-of": collects,
-        "mention-of": comments,
-        "rsvp": comments
-      };
+    /** @type {Array<Reaction>} */
+    let comments = [];
+    /** @type {Array<Reaction>} */
+    const collects = [];
 
-      json.children.forEach(function(child) {
-        // This seem to push the reaction into either comments or collects
-        const store = mapping[child['wm-property']];
-        if (store) {
-          store.push(child);
-        }
-      });
+    if (commentsAreReactions) {
+      comments = collects;
+    }
 
-      // format the comment-type things
-      let formattedComments = '';
-      if (comments.length > 0 && comments !== collects) {
-        formattedComments = formatComments(dedupe(comments));
+    /** @type {Record<ReactEmoji, Array<Reaction>>} */
+    const mapping = {
+      "in-reply-to": comments,
+      "like-of": collects,
+      "repost-of": collects,
+      "bookmark-of": collects,
+      "follow-of": collects,
+      "mention-of": comments,
+      "rsvp": comments
+    };
+
+    json.children.forEach(function(child) {
+      // This seem to push the reaction into either comments or collects
+      const store = mapping[child['wm-property']];
+      if (store) {
+        store.push(child);
       }
-
-      // format the other reactions
-      let reactions = '';
-      if (collects.length > 0) {
-        reactions = formatReactions(dedupe(collects));
-      }
-
-      container.innerHTML = `${formattedComments}${reactions}`;
     });
+
+    // format the comment-type things
+    let formattedComments = '';
+    if (comments.length > 0 && comments !== collects) {
+      formattedComments = formatComments(dedupe(comments));
+    }
+
+    // format the other reactions
+    let reactions = '';
+    if (collects.length > 0) {
+      reactions = formatReactions(dedupe(collects));
+    }
+
+    container.innerHTML = `${formattedComments}${reactions}`;
   });
 }());
