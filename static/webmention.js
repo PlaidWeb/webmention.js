@@ -396,7 +396,7 @@ A more detailed example:
     /** @type {WebmentionResponse} */
     let json = {};
     try {
-      const response = await window.fetch(apiUrl);
+      const response = await window.fetch(apiURL);
       if (response.status >= 200 && response.status < 300) {
         json = await response.json();
       } else {
