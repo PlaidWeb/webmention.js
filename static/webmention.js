@@ -108,7 +108,7 @@ A more detailed example:
    * Read the configuration value.
    *
    * @param {string} key The configuration key.
-   * @param {string} dfl A fallback value.
+   * @param {string} dfl The default value.
    * @returns {string}
    */
   function getCfg(key, dfl) {
@@ -195,13 +195,13 @@ A more detailed example:
   /**
    * Creates the markup for an reaction image.
    *
-   * @param {Reaction} r 
-   * @param {boolean} isComment 
+   * @param {Reaction} r
+   * @param {boolean} isComment
    * @returns {string}
    */
   function reactImage(r, isComment) {
     const who = entities(
-      (r.author && r.author.name) ? r.author.name : r.url.split("/")[2]
+      r.author?.name ?? r.url.split("/")[2]
     );
     /** @type {string} */
     let response = reactTitle[r["wm-property"]] || t("reacted");
@@ -245,7 +245,7 @@ A more detailed example:
    *
    * @param {string} url The URL to strip protocol off.
    * @returns {string}
-   */ 
+   */
   function stripurl(url) {
     return url.substr(url.indexOf('//'));
   }
@@ -277,7 +277,7 @@ A more detailed example:
   /**
    * Extract comments from a reaction.
    *
-   * @param {Reactions} c 
+   * @param {Reactions} c
    * @returns string
    */
   function extractComment(c) {
@@ -367,8 +367,8 @@ A more detailed example:
   /**
    * Fetch the stored data.
    *
-   * @param {string} url 
-   * @param {*} callback 
+   * @param {string} url
+   * @param {*} callback
    */
   function getData(url, callback) {
     window
@@ -428,7 +428,6 @@ A more detailed example:
         comments = collects;
       }
 
-      // TODO: Why is `follow-of` missing here?
       /** @type {Record<ReactEmoji, Array<Reaction>>} */
       const mapping = {
         "in-reply-to": comments,
