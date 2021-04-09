@@ -404,8 +404,8 @@ A more detailed example:
         new Error(response.statusText);
       }
     } catch(error) {
+      // Purposefully not escalate further, i.e. no UI update
       console.error("Request failed", error);
-      throw error;
     }
 
     /** @type {Array<Reaction>} */
