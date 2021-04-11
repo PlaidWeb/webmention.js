@@ -354,7 +354,7 @@ A more detailed example:
    * @returns string
    */
   function formatReactions(reacts) {
-    const headline = `<h2>' + t('Reactions') + '</h2>`;
+    const headline = `<h2>${t('Reactions')}</h2>`;
 
     const markup = reacts.map((r) => reactImage(r)).join('');
 
