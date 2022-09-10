@@ -2,7 +2,7 @@
 
 Simple thing for embedding webmentions from webmention.io into a page, client-side.
 
-(c)2018-2021 fluffy (http://beesbuzz.biz)
+(c)2018-2022 fluffy (http://beesbuzz.biz)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -203,7 +203,7 @@ A more detailed example:
    */
   function reactImage(r, isComment) {
     const who = entities(
-      r.author?.name ?? r.url.split("/")[2]
+      r.author?.name || r.url.split("/")[2]
     );
     /** @type {string} */
     let response = reactTitle[r["wm-property"]] || t("reacted");
