@@ -23,6 +23,11 @@
     margin: 3px -1ex 1px 0;
 }
 
+#webmentions img.missing {
+    background: white;
+    border: dashed black 1px;
+}
+
 #webmentions ul {
     list-style-type: none;
     margin: 0;

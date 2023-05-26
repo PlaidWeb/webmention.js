@@ -127,7 +127,7 @@ A more detailed example:
   const sortBy = getCfg("sort-by", "published");
   const sortDir = getCfg("sort-dir", "up");
   /** @type {boolean} */
-  const commentsAreReactions = getCfg("comments-are-reactions");
+  const commentsAreReactions = getCfg("comments-are-reactions", false);
 
   /**
    * @typedef MentionType
@@ -219,6 +219,14 @@ A more detailed example:
           loading="lazy"
           decoding="async"
           alt="${who}"
+        >
+      `;
+    } else {
+      authorPhoto = `
+        <img width="64" height="64"
+          class="missing"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+          alt="${who}$"
         >
       `;
     }
