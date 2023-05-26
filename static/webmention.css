@@ -50,6 +50,7 @@
 
 #webmentions a.reaction img {
     max-height: 1.3em;
+    width: auto;
     margin-right: -1ex;
     border-radius: 25%;
 }
