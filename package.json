@@ -1,6 +1,6 @@
 {
   "name": "webmention.js",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "description": "Client-side library for rendering webmentions from webmention.io",
   "browser": "static/webmention.min.js",
   "directories": {
