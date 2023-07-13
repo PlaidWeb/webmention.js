@@ -188,10 +188,12 @@ A more detailed example:
    * @returns {string}
    */
   function entities(text) {
-    return text.replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
+    return text.replace(/[&<>"]/g, (tag) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+    }[tag] || tag));
   }
 
   /**
@@ -327,7 +329,7 @@ A more detailed example:
         let linktext = `(${t("mention")})`;
         if (c.name) {
           linkclass = "name";
-          linktext = c.name;
+          linktext = entities(c.name);
         } else if (c.content && c.content.text) {
           linkclass = "text";
           linktext = extractComment(c);
