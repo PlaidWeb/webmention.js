@@ -82,3 +82,4 @@ Listed in order of first contribution:
 * [Jamie Tanna](https://github.com/jamietanna)
 * [André Jaenisch](https://github.com/Ryuno-Ki)
 * [Christian Oliff](https://github.com/coliff)
+* [Yuxuan 'fishy' Wang](https://github.com/fishy)
