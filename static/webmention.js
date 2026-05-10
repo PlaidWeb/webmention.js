@@ -77,6 +77,11 @@ Allowed parameters:
         (replies/mentions/etc.) as being part of the reactions
         (favorites/bookmarks/etc.) instead of in a separate comment list.
 
+    api-endpoint:
+
+        The API endpoint; default to 'https://webmention.io/api/mentions.jf2'.
+        Can be used to use a compatible backend.
+
 A more detailed example:
 
 <!-- If you want to translate the UI -->
@@ -128,6 +133,7 @@ A more detailed example:
   const sortDir = getCfg("sort-dir", "up");
   /** @type {boolean} */
   const commentsAreReactions = getCfg("comments-are-reactions", false);
+  const apiEndpoint = getCfg("api-endpoint", "https://webmention.io/api/mentions.jf2");
 
   /**
    * @typedef MentionType
@@ -399,7 +405,7 @@ A more detailed example:
       });
     }
 
-    let apiURL = `https://webmention.io/api/mentions.jf2?per-page=${maxWebmentions}&sort-by=${sortBy}&sort-dir=${sortDir}`;
+    let apiURL = `${apiEndpoint}?per-page=${maxWebmentions}&sort-by=${sortBy}&sort-dir=${sortDir}`;
 
     pages.forEach(function (path) {
       apiURL += `&target[]=${encodeURIComponent('http:' + path)}&target[]=${encodeURIComponent('https:' + path)}`;
