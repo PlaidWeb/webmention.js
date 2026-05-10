@@ -45,6 +45,8 @@ Accepted arguments (see the source in `static/webmention.js` for more details):
 * `comments-are-reactions` -- if set to `'true'`, displays comment-type responses
     (replies/mentions/etc.) as being part of the reactions (favorites/bookmarks/etc.)
     instead of in a separate comment list. Defaults to "false".
+* `api-endpoint` -- default to `https://webmention.io/api/mentions.jf2`, can be used
+    to use a compatible alternative backend.
 
 Look at the source code itself for more detailed information.
 
