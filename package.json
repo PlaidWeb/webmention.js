@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "github:PlaidWeb/webmention.js"
+    "url": "git+https://github.com/PlaidWeb/webmention.js.git"
   },
   "keywords": [
     "IndieWeb",
